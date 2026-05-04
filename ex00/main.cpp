@@ -25,7 +25,7 @@ int main()
         else 
             charCount.insert(std::make_pair(c, 1));
     }
-
+ 
     std::map<char, int >::iterator it;
 
     std::cout << "Character counts" << std::endl;
