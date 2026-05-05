@@ -11,29 +11,14 @@
 
 int main()
 {
-    std::string word = "Banana";
-    std::map<char , int > charCount;
+  std::map<int , std::string> my_map;
+    my_map[-7] = "oussma";
+    my_map[-12] = "anass";
+    my_map[13] = "Achraf";
+    
+    typedef std::map<int , std::string>::iterator iterator;
 
-
-    for(size_t i = 0; i< word.length(); i++)
-    {
-        char c = word[i];
-        // charCount[c]++;
-        std::map<char , int >::iterator it = charCount.find(c);
-        if(it != charCount.end())
-            it->second = it->second + 1;
-        else 
-            charCount.insert(std::make_pair(c, 1));
-    }
- 
-    std::map<char, int >::iterator it;
-
-    std::cout << "Character counts" << std::endl;
-
-    for(it = charCount.begin(); it != charCount.end(); ++it )
-    {
+    for(iterator it = my_map.begin(), it != my_map.end(), it++)
         std::cout << it->first << ":" << it->second << std::endl;
-    }
-    return 0;
-
+        
 }     
