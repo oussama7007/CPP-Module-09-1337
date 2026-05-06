@@ -73,6 +73,31 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
     return true;
 }
 
+
+// 1. Start from the beginning of the string.
+// 2. Move forward while the character is a space.
+// 3. Start from the end of the string.
+// 4. Move backward while the character is a space.
+// 5. Return the middle part.
+
+
+
+std::string BitcoinExchange::trim(const std::string &str) const
+{
+    size_t start = 0 ;
+    size_t end = str.length();
+
+    while (start < end && std::isspace(str[start]))
+        start++;
+
+    while (end > start && std::isspace(str[end - 1]))
+        end--;
+
+    return str.substr(start, end - start);
+
+}
+
+
 void    BitcoinExchange::loadDatabase(const std::string &filename)
 {
 
