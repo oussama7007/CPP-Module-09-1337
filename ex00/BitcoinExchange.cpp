@@ -60,7 +60,18 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
     int year = atoi(date.substr(0,4).c_str());
     int day = atoi(date.substr(8,2).c_str());
 
-    if(month > 12 || day > 31 )
+    if (month < 1 || month > 12)
+        return false;
+
+    if (day < 1 || day > 31)
+        return false;
+    
+    int daysInMonth[12] = {
+        31, 28, 31, 30, 31, 30,
+        31, 31, 30, 31, 30, 31
+    };
+
+    if (day > daysInMonth[month - 1])
         return false;
     
     return true;
