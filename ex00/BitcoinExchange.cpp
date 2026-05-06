@@ -2,84 +2,71 @@
 
 
 
+// 1. Split line
+// 2. trim date
+// 3. trim value
+// 4. call isValidDate(date)
+// 5. call isValidValue(value)
+
+#include "BitcoinExchange.h" 
 
 
 
+BitcoinExchange::BitcoinExchange()  {}
 
-
-
-
-
-
-
-
-
-#ifndef BITCOINEXCHANGE_HPP
-#define BITCOINEXCHANGE_HPP
-
-
-#include <iostream>
-#include <map>
-
-
-class   BitcoinExchange
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
 {
-    private:
-        std::map<std::string, double> database;
-    public:
-        BitcoinExchange();
-        BitcoinExchange(const BitcoinExchange &other);
-        BitcoinExchange& operator=(const BitcoinExchange &other);
-        ~BitcoinExchange();
+    database = other.database;
+}
 
-        // void loadDatabase(const std::string &filename);
-        // void processInput(const std::string &filename) const;
-
-
-
-
-
-
-
+BitcoinExchange &   BitcoinExchange::operator=(const BitcoinExchange &other)
+{
+    if(this != &other)
+    {
+        database = other.database; 
     }
+    return *this;
+}
+
+BitcoinExchange::~BitcoinExchange() {}
 
 
 
-#endif
+// Check these things in order:
 
+// 1. The string length must be 10
+// 2. date[4] must be '-'
+// 3. date[7] must be '-'
+// 4. All other characters must be digits
+// 5. Extract year, month, day
+// 6. Month must be from 1 to 12
+// 7. Day must be valid for that month
+// 8. February 29 must only work in leap years
 
+bool BitcoinExchange::isValidDate(const std::string &date) const
+{
+    if(date.length() != 10)
+        return false;
 
+    if(date[4] != '-' || date[7] != '-')
+        return false;
+    
+    for(int i = 0; i < 10; i++)
+    {
+        if(i == 4  || i == 7)
+            continue;
+        if(!std::isdigit(date[i]))
+            return false;
+    }
+    
+}
 
+void    BitcoinExchange::loadDatabase(const std::string &filename)
+{
 
+}
 
+void    BitcoinExchange::processInput(const std::string &filename) const
+{
 
-
-
-
-
-
-
-
-
-// class BitcoinExchange
-// {
-// private:
-//     std::map<std::string, double> _database;
-
-// public:
-//     BitcoinExchange();
-//     BitcoinExchange(const BitcoinExchange &other);
-//     BitcoinExchange &operator=(const BitcoinExchange &other);
-//     ~BitcoinExchange();
-
-//     void loadDatabase(const std::string &filename);
-//     void processInput(const std::string &filename) const;
-
-// private:
-//     bool isValidDate(const std::string &date) const;
-//     bool isValidValue(const std::string &value) const;
-//     double parseDouble(const std::string &str) const;
-//     double getRateForDate(const std::string &date) const;
-//     std::string trim(const std::string &str) const;
-// };
-
+}
