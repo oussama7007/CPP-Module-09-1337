@@ -30,10 +30,7 @@ BitcoinExchange &   BitcoinExchange::operator=(const BitcoinExchange &other)
 
 BitcoinExchange::~BitcoinExchange() {}
 
-
-
 // Check these things in order:
-
 // 1. The string length must be 10
 // 2. date[4] must be '-'
 // 3. date[7] must be '-'
@@ -58,7 +55,15 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
         if(!std::isdigit(date[i]))
             return false;
     }
+
+    int  month = atoi(date.substr(5,2).c_str());
+    int year = atoi(date.substr(0,4).c_str());
+    int day = atoi(date.substr(8,2).c_str());
+
+    if(month > 12 || day > 31 )
+        return false;
     
+    return true;
 }
 
 void    BitcoinExchange::loadDatabase(const std::string &filename)
