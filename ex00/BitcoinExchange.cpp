@@ -1,7 +1,4 @@
 
-
-
-
 // 1. Split line
 // 2. trim date
 // 3. trim value
@@ -9,8 +6,6 @@
 // 5. call isValidValue(value)
 
 #include "BitcoinExchange.h" 
-
-
 
 BitcoinExchange::BitcoinExchange()  {}
 
@@ -28,7 +23,9 @@ BitcoinExchange &   BitcoinExchange::operator=(const BitcoinExchange &other)
     return *this;
 }
 
+
 BitcoinExchange::~BitcoinExchange() {}
+
 
 // Check these things in order:
 // 1. The string length must be 10
@@ -39,6 +36,7 @@ BitcoinExchange::~BitcoinExchange() {}
 // 6. Month must be from 1 to 12
 // 7. Day must be valid for that month
 // 8. February 29 must only work in leap years
+
 
 bool BitcoinExchange::isValidDate(const std::string &date) const
 {
@@ -79,8 +77,6 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
 // 3. Start from the end of the string.
 // 4. Move backward while the character is a space.
 // 5. Return the middle part.
-
-
 
 std::string BitcoinExchange::trim(const std::string &str) const
 {
