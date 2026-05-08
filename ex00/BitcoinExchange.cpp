@@ -35,7 +35,7 @@ BitcoinExchange::~BitcoinExchange() {}
 // 5. Extract year, month, day
 // 6. Month must be from 1 to 12
 // 7. Day must be valid for that month
-// 8. February 29 must only work in leap years
+
 
 
 bool BitcoinExchange::isValidDate(const std::string &date) const
@@ -70,8 +70,6 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
     
     return true;
 }
-
-
 // 1. Start from the beginning of the string.
 // 2. Move forward while the character is a space.
 // 3. Start from the end of the string.
@@ -93,13 +91,35 @@ std::string BitcoinExchange::trim(const std::string &str) const
 
 }
 
+double BitcoinExchange::parseDouble(const std::string &str) const
+{
+    return std::strtod(str.c_str(), NULL);
+}
+
+bool BitcoinExchange::isValidValue(const std::string &value) const 
+{
+    char *end;
+
+    if(value.empty())
+        return false;
+    
+    std::strtod(value.c_str(), &end);
+
+    if (*end != '\0')
+        return false;
+
+    return true;
+    
+}
 
 void    BitcoinExchange::loadDatabase(const std::string &filename)
 {
-
+    
 }
 
 void    BitcoinExchange::processInput(const std::string &filename) const
 {
 
 }
+
+

@@ -1,16 +1,19 @@
 
 
 
-
-
-
-
 #ifndef BITCOINEXCHANGE_HPP
 #define BITCOINEXCHANGE_HPP
 
 
 #include <iostream>
 #include <map>
+#include <cstdlib>
+#include <fstream>
+#include <stdexcept>
+#include <cstdlib>
+#include <cctype>
+
+
 
 // 1. Loading data.csv
 // 2. Storing Bitcoin prices by date
@@ -38,8 +41,6 @@ class   BitcoinExchange
 
         void loadDatabase(const std::string &filename);
         void processInput(const std::string &filename) const;
-
-
 
 
 
