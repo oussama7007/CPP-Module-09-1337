@@ -114,7 +114,10 @@ bool BitcoinExchange::isValidValue(const std::string &value) const
 
 void    BitcoinExchange::loadDatabase(const std::string &filename)
 {
-    
+    std::ifstream file(filename.c_str());
+
+    if (!file.is_open())
+        throw std::runtime_error("Error: could not open file.");
 }
 
 void    BitcoinExchange::processInput(const std::string &filename) const
