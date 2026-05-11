@@ -109,7 +109,7 @@ bool BitcoinExchange::isValidValue(const std::string &value) const
         return false;
 
     return true;
-    
+
 }
 
 void    BitcoinExchange::loadDatabase(const std::string &filename)
@@ -125,6 +125,15 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
     {
         size_t comma = line.find(',');
         if(comma == -1 )
+        std::string date = line.substr(0, comma);
+        std::string priceStr = line.substr(comma + 1 );
+
+        date = BitcoinExchange::trim(date);
+        priceStr =  BitcoinExchange::trim(priceStr);
+        if(isValidDate(date))
+        {
+
+        }
     }
 }
 
