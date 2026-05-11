@@ -33,7 +33,7 @@ const char *BitcoinExchange::EmptyDatabaseException::what()  const throw()
 
 const char *BitcoinExchange::fileOpenException::what() const throw()
 {
-    return "Error: could not open file."
+    return "Error: could not open file.";
 }
 
 
@@ -128,14 +128,14 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
     std::ifstream file(filename.c_str());
 
     if (!file.is_open())
-        throw std::runtime_error("Error: could not open file.");
+        throw fileOpenException();
     
     std::string line;
     std::getline(file, line);
     while(std::getline(file, line))
     {
         size_t comma = line.find(',');
-        if(comma == -1 )
+        if (comma == std::string::npos) //-1
             continue;
         std::string date = line.substr(0, comma);
         std::string priceStr = line.substr(comma + 1 );
@@ -151,8 +151,16 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
         double price = parseDouble(priceStr);
         database[date]  = price;
     }
+    if (database.empty())
+        throw EmptyDatabaseException();
+
 }
 
+
+double BitcoinExchange::getRateForDate(const std::string &date) const
+{
+    std::map<std::string , double>::const_iterator it ;
+}
 void    BitcoinExchange::processInput(const std::string &filename) const
 {
 
