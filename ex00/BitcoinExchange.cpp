@@ -1,4 +1,13 @@
 
+
+
+
+
+
+
+
+
+
 // 1. Split line
 // 2. trim date
 // 3. trim value
@@ -38,6 +47,8 @@ const char *BitcoinExchange::fileOpenException::what() const throw()
 
 
 
+
+
 // Check these things in order:
 // 1. The string length must be 10
 // 2. date[4] must be '-'
@@ -46,6 +57,13 @@ const char *BitcoinExchange::fileOpenException::what() const throw()
 // 5. Extract year, month, day
 // 6. Month must be from 1 to 12
 // 7. Day must be valid for that month
+
+
+
+
+
+
+
 
 
 
@@ -87,6 +105,15 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
 // 4. Move backward while the character is a space.
 // 5. Return the middle part.
 
+
+
+
+
+
+
+
+
+
 std::string BitcoinExchange::trim(const std::string &str) const
 {
     size_t start = 0 ;
@@ -102,10 +129,25 @@ std::string BitcoinExchange::trim(const std::string &str) const
 
 }
 
+
+
+
+
+
+
+
+
 double BitcoinExchange::parseDouble(const std::string &str) const
 {
     return std::strtod(str.c_str(), NULL);
 }
+
+
+
+
+
+
+
 
 bool BitcoinExchange::isValidValue(const std::string &value) const 
 {
@@ -122,6 +164,16 @@ bool BitcoinExchange::isValidValue(const std::string &value) const
     return true;
 
 }
+
+
+
+
+
+
+
+
+
+
 
 void    BitcoinExchange::loadDatabase(const std::string &filename)
 {
@@ -157,6 +209,7 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
 }
 
 
+
 double BitcoinExchange::getRateForDate(const std::string &date) const
 {
     std::map<std::string , double>::const_iterator it ;
@@ -165,4 +218,14 @@ void    BitcoinExchange::processInput(const std::string &filename) const
 {
 
 }
+
+
+
+
+
+
+
+
+
+
 
