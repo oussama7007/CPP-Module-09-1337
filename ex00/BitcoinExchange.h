@@ -38,7 +38,16 @@ class   BitcoinExchange
         BitcoinExchange(const BitcoinExchange &other);
         BitcoinExchange& operator=(const BitcoinExchange &other);
         ~BitcoinExchange();
-
+        class fileOpenException : public std::exception
+        {
+            public:
+                const char * what() const throw();
+        };
+        class EmptyDatabaseException : public std::exception  
+        {
+            public:
+                const char *what() const throw();
+        };
         void loadDatabase(const std::string &filename);
         void processInput(const std::string &filename) const;
 

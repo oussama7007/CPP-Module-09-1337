@@ -26,6 +26,13 @@ BitcoinExchange &   BitcoinExchange::operator=(const BitcoinExchange &other)
 
 BitcoinExchange::~BitcoinExchange() {}
 
+const char *BitcoinExchange::EmptyDatabaseException()::what() 
+{
+   
+    
+}
+
+
 
 // Check these things in order:
 // 1. The string length must be 10
@@ -102,7 +109,7 @@ bool BitcoinExchange::isValidValue(const std::string &value) const
 
     if(value.empty())
         return false;
-    
+
     std::strtod(value.c_str(), &end);
 
     if (*end != '\0')
@@ -125,15 +132,20 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
     {
         size_t comma = line.find(',');
         if(comma == -1 )
+            continue;
         std::string date = line.substr(0, comma);
         std::string priceStr = line.substr(comma + 1 );
 
         date = BitcoinExchange::trim(date);
         priceStr =  BitcoinExchange::trim(priceStr);
-        if(isValidDate(date))
-        {
 
-        }
+        if(!isValidDate(date))
+            continue;
+        if (!isValidValue(priceStr))
+            continue;
+        
+        double price = parseDouble(priceStr);
+        database[date]  = price;
     }
 }
 
