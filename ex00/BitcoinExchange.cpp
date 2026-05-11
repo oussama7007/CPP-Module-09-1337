@@ -121,6 +121,11 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
     
     std::string line;
     std::getline(file, line);
+    while(std::getline(file, line))
+    {
+        size_t comma = line.find(',');
+        if(comma == -1 )
+    }
 }
 
 void    BitcoinExchange::processInput(const std::string &filename) const
