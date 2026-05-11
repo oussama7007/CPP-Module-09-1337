@@ -26,10 +26,14 @@ BitcoinExchange &   BitcoinExchange::operator=(const BitcoinExchange &other)
 
 BitcoinExchange::~BitcoinExchange() {}
 
-const char *BitcoinExchange::EmptyDatabaseException()::what() 
+const char *BitcoinExchange::EmptyDatabaseException::what()  const throw()
 {
-   
-    
+    return "Error: empty database";
+}
+
+const char *BitcoinExchange::fileOpenException::what() const throw()
+{
+    return "Error: could not open file."
 }
 
 
