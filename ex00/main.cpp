@@ -1,36 +1,38 @@
 #include <iostream>
-#include <exception>
-#include <stdexcept>
+#include <map>
+#include <string>
 
-class BadException : public std::exception
+class MyClass
 {
+private:
+    std::map<std::string, double> mymap;
+
 public:
-     const char *what() const throw()
-    {
-        std::cout << "Inside what(), now I will throw another exception..." << std::endl;
-
-        // throw std::runtime_error("Error thrown from what()");
-
-        return "This will never be returned";
-    }
+    MyClass();
+    void function() const;
 };
+
+MyClass::MyClass()
+{
+    mymap["2002-11-02"] = 0.15;
+    mymap["2002-11-12"] = 0.20;
+}
+
+void MyClass::function() const
+{
+    std::map<std::string, double>::const_iterator it;
+
+    it = mymap.begin(); // هنا غالبا compile error
+
+    while (it != mymap.end())
+    {
+        std::cout << it->first << " : " << it->second << std::endl;
+        ++it;
+    }
+}
 
 int main()
 {
-    try
-    {
-        throw BadException();
-    }
-    catch (const std::exception &e)
-    {
-        std::cout << "Caught BadException" << std::endl;
-
-        std::cout << e.what() << std::endl;
-
-        std::cout << "This line will probably not be printed" << std::endl;
-    }
-
-    std::cout << "End of program" << std::endl;
-
-    return 0;
+    MyClass obj;
+    obj.function();
 }

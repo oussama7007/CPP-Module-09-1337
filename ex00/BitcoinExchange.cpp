@@ -212,8 +212,17 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
 
 double BitcoinExchange::getRateForDate(const std::string &date) const
 {
-    std::map<std::string , double>::const_iterator it ;
+    std::map<std::string, double>::const_iterator it;
+
+    it = database.upper_bound(date);
+
+    if (it == database.begin())
+        throw std::runtime_error("Error: no earlier date in database.");
+
+    --it;
+    return it->second;
 }
+
 void    BitcoinExchange::processInput(const std::string &filename) const
 {
 
