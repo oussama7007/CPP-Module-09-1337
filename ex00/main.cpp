@@ -1,38 +1,31 @@
-#include <iostream>
-#include <map>
-#include <string>
 
-class MyClass
+
+
+
+
+#include "BitcoinExchange.h"
+
+
+
+int main(int  ac, char **av)
 {
-private:
-    std::map<std::string, double> mymap;
-
-public:
-    MyClass();
-    void function() const;
-};
-
-MyClass::MyClass()
-{
-    mymap["2002-11-02"] = 0.15;
-    mymap["2002-11-12"] = 0.20;
-}
-
-void MyClass::function() const
-{
-    std::map<std::string, double>::const_iterator it;
-
-    it = mymap.begin(); // هنا غالبا compile error
-
-    while (it != mymap.end())
+    if (ac != 2)
     {
-        std::cout << it->first << " : " << it->second << std::endl;
-        ++it;
+        std::cerr << "Error: could not open file." << std::endl;
+        return 1;
     }
-}
+    try
+    {
+        BitcoinExchange btc;
 
-int main()
-{
-    MyClass obj;
-    obj.function();
+        btc.loadDatabase("data.csv");
+        btc.processInput(av[1]);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+        return 1;
+    }
+
+    return 0;
 }

@@ -26,6 +26,7 @@
 class   BitcoinExchange
 {
     private:
+        
         std::map<std::string, double> database;
         
         bool isValidDate(const std::string &date) const;
@@ -50,8 +51,6 @@ class   BitcoinExchange
         };
         void loadDatabase(const std::string &filename);
         void processInput(const std::string &filename) const;
-
-
 
 };
 #endif

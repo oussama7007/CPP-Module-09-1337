@@ -1,13 +1,5 @@
 
 
-
-
-
-
-
-
-
-
 // 1. Split line
 // 2. trim date
 // 3. trim value
@@ -21,6 +13,7 @@ BitcoinExchange::BitcoinExchange()  {}
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
 {
     database = other.database;
+    
 }
 
 BitcoinExchange &   BitcoinExchange::operator=(const BitcoinExchange &other)
@@ -46,9 +39,6 @@ const char *BitcoinExchange::fileOpenException::what() const throw()
 }
 
 
-
-
-
 // Check these things in order:
 // 1. The string length must be 10
 // 2. date[4] must be '-'
@@ -57,14 +47,6 @@ const char *BitcoinExchange::fileOpenException::what() const throw()
 // 5. Extract year, month, day
 // 6. Month must be from 1 to 12
 // 7. Day must be valid for that month
-
-
-
-
-
-
-
-
 
 
 bool BitcoinExchange::isValidDate(const std::string &date) const
@@ -79,7 +61,7 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
     {
         if(i == 4  || i == 7)
             continue;
-        if(!std::isdigit(date[i]))
+        if(!std::isdigit(static_cast<unsigned char>(date[i])))
             return false;
     }
 
@@ -105,24 +87,15 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
 // 4. Move backward while the character is a space.
 // 5. Return the middle part.
 
-
-
-
-
-
-
-
-
-
 std::string BitcoinExchange::trim(const std::string &str) const
 {
     size_t start = 0 ;
     size_t end = str.length();
 
-    while (start < end && std::isspace(str[start]))
+    while (start < end && std::isspace(static_cast<unsigned char>(str[start])))
         start++;
 
-    while (end > start && std::isspace(str[end - 1]))
+    while (end > start && std::isspace(static_cast<unsigned char>(str[end - 1])))
         end--;
 
     return str.substr(start, end - start);
@@ -131,22 +104,10 @@ std::string BitcoinExchange::trim(const std::string &str) const
 
 
 
-
-
-
-
-
-
 double BitcoinExchange::parseDouble(const std::string &str) const
 {
     return std::strtod(str.c_str(), NULL);
 }
-
-
-
-
-
-
 
 
 bool BitcoinExchange::isValidValue(const std::string &value) const 
@@ -164,15 +125,6 @@ bool BitcoinExchange::isValidValue(const std::string &value) const
     return true;
 
 }
-
-
-
-
-
-
-
-
-
 
 
 void    BitcoinExchange::loadDatabase(const std::string &filename)
@@ -223,18 +175,82 @@ double BitcoinExchange::getRateForDate(const std::string &date) const
     return it->second;
 }
 
-void    BitcoinExchange::processInput(const std::string &filename) const
+void BitcoinExchange::processInput(const std::string &filename) const
 {
+    if (database.empty())
+        throw EmptyDatabaseException();
 
+    std::ifstream file(filename.c_str());
+
+    if (!file.is_open())
+        throw fileOpenException();
+
+    std::string line;
+
+    if (!std::getline(file, line))
+        return;
+
+    if (trim(line) != "date | value")
+        std::cout << "Error: bad header => " << line << std::endl;
+
+    while (std::getline(file, line))
+    {
+        std::string cleanLine = trim(line);
+
+        if (cleanLine.empty())
+            continue;
+
+        size_t pipe = line.find('|');
+
+        if (pipe == std::string::npos)
+        {
+            std::cerr << "Error: bad input => " << cleanLine << std::endl;
+            continue;
+        }
+
+        if (line.find('|', pipe + 1) != std::string::npos)
+        {
+            std::cerr << "Error: bad input => " << cleanLine << std::endl;
+            continue;
+        }
+
+        std::string date = trim(line.substr(0, pipe));
+        std::string valueStr = trim(line.substr(pipe + 1));
+
+        if (!isValidDate(date))
+        {
+            std::cerr << "Error: bad input => " << cleanLine << std::endl;
+            continue;
+        }
+
+        if (!isValidValue(valueStr))
+        {
+            std::cerr << "Error: bad input => " << cleanLine << std::endl;
+            continue;
+        }
+
+        double value = parseDouble(valueStr);
+
+        if (value < 0)
+        {
+            std::cerr << "Error: not a positive number." << std::endl;
+            continue;
+        }
+
+        if (value > 1000)
+        {
+            std::cerr << "Error: too large a number." << std::endl;
+            continue;
+        }
+
+        try
+        {
+            double rate = getRateForDate(date);
+            std::cout << date << " => " << value << " = " << value * rate << std::endl;
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
