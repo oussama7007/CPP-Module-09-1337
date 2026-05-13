@@ -1,0 +1,32 @@
+{
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.cache/**": true,
+    "**/node_modules/**": true,
+    "**/build/**": true,
+    "**/dist/**": true,
+    "**/obj/**": true
+  },
+  "search.exclude": {
+    "**/.cache": true,
+    "**/node_modules": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/obj": true
+  },
+  "git.autofetch": false,
+  "git.autorefresh": false,
+  "extensions.autoUpdate": false,
+
+  "C_Cpp.intelliSenseEngine": "default",
+  "C_Cpp.errorSquiggles": "enabled",
+  "C_Cpp.codeAnalysis.runAutomatically": false,
+  "C_Cpp.default.cppStandard": "c++98",
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/**"
+  ],
+  "C_Cpp.default.browse.path": [
+    "${workspaceFolder}/**"
+  ]
+}
