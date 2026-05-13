@@ -139,7 +139,7 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
     while(std::getline(file, line))
     {
         size_t comma = line.find(',');
-        if (comma == std::string::npos) //-1
+        if (comma == std::string::npos) //hiya rah -1 mais makhasekch dirha kheliha haka 
             continue;
         std::string date = line.substr(0, comma);
         std::string priceStr = line.substr(comma + 1 );
