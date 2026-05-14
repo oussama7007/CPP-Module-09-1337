@@ -25,11 +25,7 @@ const char* RPN::Error::what() const throw()
     return "Error";
 }
 
-void RPN::clearStack()
-{
-    while (!stack.empty())
-        stack.pop();
-}
+
 
 bool RPN::isOperator(const std::string& token) const
 {
@@ -60,7 +56,7 @@ int RPN::calculate(const std::string& expression)
     std::istringstream iss(expression);
     std::string token;
 
-    clearStack();
+
 
     while (iss >> token) // extraction operator
     {
@@ -91,7 +87,7 @@ int RPN::calculate(const std::string& expression)
         throw Error();
 
     int result = stack.top();
-    clearStack();
+    
 
     return result;
 }

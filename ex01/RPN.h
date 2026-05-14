@@ -18,7 +18,7 @@ class RPN
         
         bool isOperator(const std::string& token) const;
         int applyOperation(int lhs, int rhs, char op) const;
-        void clearStack();
+     
     public:
         RPN();
         RPN(const RPN& other);
