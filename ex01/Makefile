@@ -1,12 +1,15 @@
 
 
 
-NAME = PmergeMe
+
+
+
+NAME = RPN
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp PmergeMe.cpp
+SRCS = main.cpp RPN.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
@@ -14,7 +17,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.cpp PmergeMe.h
+%.o: %.cpp RPN.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
@@ -24,4 +27,3 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
