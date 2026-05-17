@@ -26,6 +26,14 @@ PmergeMe::~PmergeMe()
 {
 }
 
+const char * PmergeMe::InvalidInput::what() const throw()
+{
+    return "Error: Invalid character in sequence";
+}
+
+
+
+
 void PmergeMe::parseInput(char **av)
 {
     for (int i = 1; av[i]; ++i)
@@ -34,8 +42,8 @@ void PmergeMe::parseInput(char **av)
         
         
         if (arg.empty() || arg.find_first_not_of(" \t") == std::string::npos)
-            throw std::invalid_argument("Error: Empty or whitespace-only argument.");
-
+            throw InvalidInput();
+        
         std::istringstream iss(arg);
         std::string token;
 
@@ -43,14 +51,14 @@ void PmergeMe::parseInput(char **av)
         {
 
             if (token.find_first_not_of("0123456789+") != std::string::npos)
-                throw std::invalid_argument("Error: Invalid character in sequence.");
+                throw InvalidInput();
                 
 
             if (token.find('+') != std::string::npos && (token.find('+') != 0 || token.length() == 1))
                 throw std::invalid_argument("Error: Invalid formatting.");
 
             long val = std::atol(token.c_str());
-            
+
             if (val < 0 || val > 2147483647)
                 throw std::invalid_argument("Error: Number out of range.");
 

@@ -23,7 +23,11 @@ class PmergeMe
         PmergeMe(const PmergeMe& other);
         PmergeMe& operator=(const PmergeMe& other);
         ~PmergeMe();
-
+        class InvalidInput : std::exception
+        {
+            public:
+                const char *what() const throw();
+        };
         void    parseInput(char **av);
         void    sortVec();
         void    sortDeq();
