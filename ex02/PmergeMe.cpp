@@ -34,7 +34,7 @@ size_t PmergeMe::getSize() const
 
 const char * PmergeMe::InvalidArg::what() const throw()
 {
-    return "Error: no argument hass passed";
+    return "Error: No arguments passed";
 }
 const char * PmergeMe::InvalidInput::what () const throw()
 {
