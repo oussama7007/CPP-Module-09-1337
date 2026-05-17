@@ -37,7 +37,7 @@ class PmergeMe
         {
             public:
                 const char *what() const throw();
-        }
+        };
         void    parseInput(char **av);
         void    sortVec();
         void    sortDeq();

@@ -13,7 +13,11 @@ int main(int ac, char **av)
         throw PmergeMe::InvalidArg();
     try
     {
-        PmergeMe obj
+        PmergeMe obj;
+        obj.parseInput(av);
+
+        obj.printVec("Before: ");
+        std::cout << "Total elements parsed: " << obj.getSize() << std::endl;
     }
     catch(const std::exception &e)
     {
