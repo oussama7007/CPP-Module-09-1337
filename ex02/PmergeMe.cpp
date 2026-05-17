@@ -31,7 +31,12 @@ size_t PmergeMe::getSize() const
     return vec.size();
 }
 
-const char * PmergeMe::InvalidInput::what() const throw()
+
+const char * PmergeMe::InvalidArg::what() const throw()
+{
+    return "Error: no argument hass passed";
+}
+const char * PmergeMe::InvalidInput::what () const throw()
 {
     return "Error: Invalid character in sequence";
 }
