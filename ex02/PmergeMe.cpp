@@ -26,10 +26,23 @@ PmergeMe::~PmergeMe()
 {
 }
 
+size_t PmergeMe::getSize() const
+{
+    return vec.size();
+}
+
 const char * PmergeMe::InvalidInput::what() const throw()
 {
     return "Error: Invalid character in sequence";
 }
+
+const char *PmergeMe::OutofRange::what() const throw()
+{
+    return "Error: Number out of range";
+}
+
+
+
 
 void PmergeMe::parseInput(char **av)
 {
@@ -52,12 +65,12 @@ void PmergeMe::parseInput(char **av)
                 
 
             if (token.find('+') != std::string::npos && (token.find('+') != 0 || token.length() == 1))
-                throw std::invalid_argument("Error: Invalid formatting.");
+                throw InvalidInput();
 
             long val = std::atol(token.c_str());
 
             if (val < 0 || val > 2147483647)
-                throw std::invalid_argument("Error: Number out of range.");
+                throw OutofRange();
 
             int intVal = static_cast<int>(val);
 
@@ -71,6 +84,8 @@ void PmergeMe::parseInput(char **av)
         }
     }
 }
+
+
 
 void PmergeMe::printVec(const std::string& message) const
 {
