@@ -13,11 +13,11 @@ int main(int ac, char **av)
         throw PmergeMe::InvalidArg();
     try
     {
-
+        PmergeMe obj
     }
-    catch(const )
+    catch(const std::exception &e)
     {
-
+        std::cout <<  e.what() << std::endl;
     }
     
 }
