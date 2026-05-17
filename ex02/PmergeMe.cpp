@@ -31,19 +31,16 @@ const char * PmergeMe::InvalidInput::what() const throw()
     return "Error: Invalid character in sequence";
 }
 
-
-
-
 void PmergeMe::parseInput(char **av)
 {
     for (int i = 1; av[i]; ++i)
     {
         std::string arg(av[i]);
-        
-        
+
+
         if (arg.empty() || arg.find_first_not_of(" \t") == std::string::npos)
             throw InvalidInput();
-        
+
         std::istringstream iss(arg);
         std::string token;
 
@@ -74,7 +71,6 @@ void PmergeMe::parseInput(char **av)
         }
     }
 }
-
 
 void PmergeMe::printVec(const std::string& message) const
 {
