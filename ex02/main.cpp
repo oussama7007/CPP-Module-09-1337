@@ -76,7 +76,8 @@ int main() {
     printContainer(pending, "Pending Elements (Losers)");
 
     // 2. مرحلة الإدراج باستخدام البحث الثنائي (Binary Search Insertion)
-    for (size_t i = 0; i < pending.size(); ++i) {
+    for (size_t i = 0; i < pending.size(); ++i)
+    {
         // std::lower_bound يعيد Iterator يشير إلى المكان الصحيح للإدراج
         // لضمان بقاء الحاوية مرتبة
         std::vector<double>::iterator pos = std::lower_bound(main_chain.begin(), main_chain.end(), pending[i]);
