@@ -48,7 +48,46 @@ const char *PmergeMe::OutofRange::what() const throw()
 
 
 
+void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
+{
+   
+    if (arr.size() <= 1)
+        return;
 
+    int straggler = -1;
+    bool hasStraggler = false;
+
+   
+    if (arr.size() % 2 != 0) {
+        straggler = arr.back();
+        arr.pop_back();       
+        hasStraggler = true;
+    }
+
+    
+    std::vector< std::pair<int, int> > pairs;
+    
+    for (size_t i = 0; i < arr.size(); i += 2) {
+        if (arr[i] > arr[i+1]) {
+            
+            pairs.push_back(std::make_pair(arr[i], arr[i+1]));
+        } else {
+           
+            pairs.push_back(std::make_pair(arr[i+1], arr[i]));
+        }
+    }
+
+    
+    std::cout << "Pairs created (Larger, Smaller): ";
+    for (size_t i = 0; i < pairs.size(); ++i) {
+        std::cout << "[" << pairs[i].first << "," << pairs[i].second << "] ";
+    }
+    if (hasStraggler)
+        std::cout << "| Straggler: " << straggler;
+    std::cout << std::endl;
+
+  
+}
 void PmergeMe::parseInput(char **av)
 {
     for (int i = 1; av[i]; ++i)
