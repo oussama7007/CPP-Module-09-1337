@@ -63,7 +63,6 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
         arr.pop_back();       
         hasStraggler = true;
     }
-
     
     std::vector< std::pair<int, int> > pairs;
     
@@ -85,7 +84,6 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
         std::cout << "| Straggler: " << straggler;
     std::cout << std::endl;
 
-  
 }
 
 void PmergeMe::parseInput(char **av)
