@@ -47,7 +47,6 @@ const char *PmergeMe::OutofRange::what() const throw()
 }
 
 
-
 void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
 {
    
@@ -84,6 +83,35 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
         std::cout << "| Straggler: " << straggler;
     std::cout << std::endl;
 
+
+    std::vector<int> mainChain;
+    for (size_t i = 0; i < pairs.size(); ++i) {
+        mainChain.push_back(pairs[i].first);
+    }
+
+    fordJohnsonVector(mainChain);
+
+    std::vector<int> pend;
+
+
+    for (size_t i = 0; i < mainChain.size(); ++i) {
+        for (size_t j = 0; j < pairs.size(); ++j) {
+            // Find the original pair that contains this specific winner
+            if (mainChain[i] == pairs[j].first) {
+                // Once found, extract the corresponding loser and add it to the pend
+                pend.push_back(pairs[j].second);
+                break; // Move to the next winner
+            }
+        }
+    }
+    std::cout << "Main Chain (Sorted): ";
+    for (size_t i = 0; i < mainChain.size(); ++i) std::cout << mainChain[i] << " ";
+    
+    std::cout << "\nPend (Matching order): ";
+    for (size_t i = 0; i < pend.size(); ++i) std::cout << pend[i] << " ";
+    
+    std::cout << "\n------------------\n";
+    
 }
 
 void PmergeMe::parseInput(char **av)
