@@ -77,7 +77,6 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
         }
     }
 
-    
     std::cout << "Pairs created (Larger, Smaller): ";
     for (size_t i = 0; i < pairs.size(); ++i) {
         std::cout << "[" << pairs[i].first << "," << pairs[i].second << "] ";
