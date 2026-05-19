@@ -93,7 +93,7 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
 
     std::vector<int> pend;
 
-
+    std::cout << "\n------------------\n";
     for (size_t i = 0; i < mainChain.size(); ++i) {
         for (size_t j = 0; j < pairs.size(); ++j) {
             // Find the original pair that contains this specific winner
@@ -104,6 +104,8 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
             }
         }
     }
+    std::cout << "\n------------------\n";
+
     std::cout << "Main Chain (Sorted): ";
     for (size_t i = 0; i < mainChain.size(); ++i) std::cout << mainChain[i] << " ";
     
