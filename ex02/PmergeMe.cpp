@@ -51,7 +51,7 @@ const char *PmergeMe::OutofRange::what() const throw()
 void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
 {
    
-    if (arr.size() <= 1)
+    if (arr.size() <= 1) 
         return;
 
     int straggler = -1;
