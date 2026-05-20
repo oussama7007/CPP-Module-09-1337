@@ -39,14 +39,6 @@ const char *BitcoinExchange::fileOpenException::what() const throw()
 }
 
 
-// Check these things in order:
-// 1. The string length must be 10
-// 2. date[4] must be '-'
-// 3. date[7] must be '-'
-// 4. All other characters must be digits
-// 5. Extract year, month, day
-// 6. Month must be from 1 to 12
-// 7. Day must be valid for that month
 
 
 bool BitcoinExchange::isValidDate(const std::string &date) const
@@ -81,11 +73,7 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
     
     return true;
 }
-// 1. Start from the beginning of the string.
-// 2. Move forward while the character is a space.
-// 3. Start from the end of the string.
-// 4. Move backward while the character is a space.
-// 5. Return the middle part.
+
 
 std::string BitcoinExchange::trim(const std::string &str) const
 {
@@ -139,7 +127,7 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
     while(std::getline(file, line))
     {
         size_t comma = line.find(',');
-        if (comma == std::string::npos) //hiya rah -1 mais makhasekch dirha kheliha haka 
+        if (comma == std::string::npos) 
             continue;
         std::string date = line.substr(0, comma);
         std::string priceStr = line.substr(comma + 1 );

@@ -14,15 +14,6 @@
 #include <cctype>
 
 
-
-// 1. Loading data.csv
-// 2. Storing Bitcoin prices by date
-// 3. Reading the input file
-// 4. Validating each line
-// 5. Finding the correct exchange rate
-// 6. Printing the result
-
-
 class   BitcoinExchange
 {
     private:
