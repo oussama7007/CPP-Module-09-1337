@@ -51,3 +51,17 @@ class   BitcoinExchange
 #endif
 
 
+  55 5 5 5 
+  5
+  55
+  5
+  5
+  5
+  5
+  5
+  5
+  55
+  5
+
+  55
+  
