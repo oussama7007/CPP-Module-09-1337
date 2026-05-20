@@ -6,7 +6,10 @@
 
     
 #include <iostream>
+
+
 #include <map>
+
 #include <cstdlib>
 #include <fstream>
 #include <stdexcept>
@@ -17,7 +20,7 @@
 class   BitcoinExchange
 {
     private:
-        
+
         std::map<std::string, double> database;
         
         bool isValidDate(const std::string &date) const;
