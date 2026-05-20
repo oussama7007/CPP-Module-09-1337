@@ -9,7 +9,7 @@
 
 
 #include <map>
-
+  
 #include <cstdlib>
 #include <fstream>
 #include <stdexcept>
@@ -47,10 +47,72 @@ class   BitcoinExchange
         void processInput(const std::string &filename) const;
 
 };
+
 #endif
 
 
+5  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5
+
+555
+
+
+
+
+
+
+
+
+
+
+
+5
+5
+5
+5
+55
+5
+5
+5
+55
+
+
+
+
+
+
+
+
+
+
+
+
+
+55
+5
+55
+5
+5
+5
+5
+55
+
+5
 
 
 
