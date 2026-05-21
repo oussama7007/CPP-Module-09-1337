@@ -56,7 +56,7 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
         if(!std::isdigit(static_cast<unsigned char>(date[i])))
             return false;
     }
-
+    int year = std::atoi(date.substr(0, 4).c_str());
     int  month = atoi(date.substr(5,2).c_str());
     int day = atoi(date.substr(8,2).c_str());
 
@@ -68,6 +68,10 @@ bool BitcoinExchange::isValidDate(const std::string &date) const
         31, 31, 30, 31, 30, 31
     };
 
+    if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0))
+    {
+        daysInMonth[1] = 29; 
+    }
     if (day > daysInMonth[month - 1])
         return false;
     
@@ -144,7 +148,7 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
         database[date]  = price;
     }
     if (database.empty())
-        throw EmptyDatabaseException();
+        throw EmptyDn atabaseException();
 
 }
 
@@ -176,10 +180,12 @@ void BitcoinExchange::processInput(const std::string &filename) const
     std::string line;
 
     if (!std::getline(file, line))
+    {
+         std::cerr << "Error: can't read the file" << std::endl;
         return;
-
-    if (trim(line) != "date | value")
-        std::cout << "Error: bad header => " << line << std::endl;
+    }
+    if (trim(line) != "date | value" )
+        std::cerr << "Error: bad header => " << line << std::endl;
 
     while (std::getline(file, line))
     {
@@ -190,7 +196,7 @@ void BitcoinExchange::processInput(const std::string &filename) const
 
         size_t pipe = line.find('|');
 
-        if (pipe == std::string::npos)
+        if (pipe == std::string::npos )
         {
             std::cerr << "Error: bad input => " << cleanLine << std::endl;
             continue;

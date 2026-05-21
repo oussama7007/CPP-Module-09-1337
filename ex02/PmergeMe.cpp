@@ -47,21 +47,19 @@ const char *PmergeMe::OutofRange::what() const throw()
 }
 void PmergeMe::fordJohnsonDeque(std::deque<int>& arr)
 {
-    // 1. Base Case
+
     if (arr.size() <= 1) 
         return;
 
     int straggler = -1;
     bool hasStraggler = false;
 
-    // 2. Handle Odd Number of Elements
     if (arr.size() % 2 != 0) {
         straggler = arr.back();
         arr.pop_back();       
         hasStraggler = true;
     }
-    
-    // 3. Create Pairs
+
     std::deque< std::pair<int, int> > pairs;
     for (size_t i = 0; i < arr.size(); i += 2) {
         if (arr[i] > arr[i+1]) {
@@ -71,16 +69,14 @@ void PmergeMe::fordJohnsonDeque(std::deque<int>& arr)
         }
     }
 
-    // 4. Build Main Chain
     std::deque<int> mainChain;
     for (size_t i = 0; i < pairs.size(); ++i) {
         mainChain.push_back(pairs[i].first);
     }
 
-    // 5. Recursion
     fordJohnsonDeque(mainChain);
 
-    // 6. Build Pend aligned with Main Chain
+
     std::deque<int> pend;
     for (size_t i = 0; i < mainChain.size(); ++i) {
         for (size_t j = 0; j < pairs.size(); ++j) {
@@ -91,9 +87,7 @@ void PmergeMe::fordJohnsonDeque(std::deque<int>& arr)
         }
     }
 
-    // ==========================================
-    // Step 4: Insertion using Jacobsthal sequence
-    // ==========================================
+
     if (!pend.empty()) {
         mainChain.insert(mainChain.begin(), pend[0]);
     }
@@ -183,9 +177,6 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
         }
     }
 
-    // ==========================================
-    // Step 4: Insertion using Jacobsthal sequence
-    // ==========================================
     if (!pend.empty()) {
         mainChain.insert(mainChain.begin(), pend[0]);
     }

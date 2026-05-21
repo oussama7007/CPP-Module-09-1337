@@ -58,7 +58,7 @@ int RPN::calculate(const std::string& expression)
 
 
 
-    while (iss >> token) // extraction operator
+    while (iss >> token)
     {
         if (token.length() == 1 && token[0] >= '0' && token[0] <= '9')
         {
