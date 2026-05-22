@@ -103,7 +103,6 @@ void PmergeMe::fordJohnsonDeque(std::deque<int>& arr)
             maxIndex = pend.size(); 
         }
 
-        // Insert elements in REVERSE order for this batch
         for (size_t i = maxIndex; i > insertedCount; --i) {
             int valueToInsert = pend[i - 1]; 
             std::deque<int>::iterator it = std::lower_bound(mainChain.begin(), mainChain.end(), valueToInsert);
@@ -114,13 +113,11 @@ void PmergeMe::fordJohnsonDeque(std::deque<int>& arr)
         jacobIndex++;
     }
 
-    // Insert Straggler if exists
     if (hasStraggler) {
         std::deque<int>::iterator it = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
         mainChain.insert(it, straggler);
     }
 
-    // Update the original array
     arr = mainChain;
 }
 
@@ -133,21 +130,18 @@ void PmergeMe::sortDeq()
 
 void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
 {
-    // 1. Base Case
     if (arr.size() <= 1) 
         return;
 
     int straggler = -1;
     bool hasStraggler = false;
 
-    // 2. Handle Odd Number of Elements
     if (arr.size() % 2 != 0) {
         straggler = arr.back();
         arr.pop_back();       
         hasStraggler = true;
     }
-    
-    // 3. Create Pairs
+
     std::vector< std::pair<int, int> > pairs;
     for (size_t i = 0; i < arr.size(); i += 2) {
         if (arr[i] > arr[i+1]) {
@@ -157,25 +151,50 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
         }
     }
 
-    // 4. Build Main Chain
     std::vector<int> mainChain;
     for (size_t i = 0; i < pairs.size(); ++i) {
         mainChain.push_back(pairs[i].first);
     }
 
-    // 5. Recursion
     fordJohnsonVector(mainChain);
 
-    // 6. Build Pend aligned with Main Chain
+    std::vector< std::pair<int, int> > searchDict = pairs;
+    
+    // نقوم بترتيب القاموس. في C++، ترتيب std::pair يعتمد تلقائياً على العنصر first
+    // التعقيد الزمني هنا هو O(N log N)
+    std::sort(searchDict.begin(), searchDict.end());
+
     std::vector<int> pend;
+    
+    // الآن نمر على mainChain المرتبة، ونبحث عن النصف الآخر في القاموس
     for (size_t i = 0; i < mainChain.size(); ++i) {
-        for (size_t j = 0; j < pairs.size(); ++j) {
-            if (mainChain[i] == pairs[j].first) {
-                pend.push_back(pairs[j].second);
-                break; 
-            }
-        }
+        // ننشئ زوجاً وهمياً للبحث، نضع فيه الرقم الذي نبحث عنه، و -1 كقيمة ثانوية
+        // (بما أن كل أرقامك موجبة، -1 يضمن أن lower_bound سيقف بالضبط عند الرقم المطلوب)
+        std::pair<int, int> target = std::make_pair(mainChain[i], -1);
+
+        // نستخدم البحث الثنائي السريع جداً O(log N) بدلاً من الحلقة المتداخلة
+        std::vector< std::pair<int, int> >::iterator it = 
+            std::lower_bound(searchDict.begin(), searchDict.end(), target);
+
+        // بمجرد العثور عليه، نضيف العنصر الأصغر إلى pend
+        pend.push_back(it->second);
     }
+
+
+
+
+
+
+
+    // std::vector<int> pend;
+    // for (size_t i = 0; i < mainChain.size(); ++i) {
+    //     for (size_t j = 0; j < pairs.size(); ++j) {
+    //         if (mainChain[i] == pairs[j].first) {
+    //             pend.push_back(pairs[j].second);
+    //             break; 
+    //         }
+    //     }
+    // }
 
     if (!pend.empty()) {
         mainChain.insert(mainChain.begin(), pend[0]);
@@ -192,7 +211,6 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
             maxIndex = pend.size(); 
         }
 
-        // Insert elements in REVERSE order for this batch
         for (size_t i = maxIndex; i > insertedCount; --i) {
             int valueToInsert = pend[i - 1]; 
             std::vector<int>::iterator it = std::lower_bound(mainChain.begin(), mainChain.end(), valueToInsert);
@@ -203,13 +221,11 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
         jacobIndex++;
     }
 
-    // Insert Straggler if exists
     if (hasStraggler) {
         std::vector<int>::iterator it = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
         mainChain.insert(it, straggler);
     }
 
-    // Update the original array! (This is what you were missing)
     arr = mainChain;
 }
 void PmergeMe::parseInput(char **av)
@@ -263,7 +279,6 @@ size_t PmergeMe::getJacobsthalNumber(size_t n)
     size_t curr = 1;
     size_t next = 0;
     
-    // Calculate Jacobsthal number iteratively (Formula: J(n) = J(n-1) + 2*J(n-2))
     for (size_t i = 2; i <= n; ++i) {
         next = curr + 2 * prev;
         prev = curr;

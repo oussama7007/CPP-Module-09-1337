@@ -1,59 +1,46 @@
 #include "PmergeMe.h"
 #include <iostream>
 #include <exception>
-#include <sys/time.h> // Required for gettimeofday
+#include <sys/time.h> 
 
 int main(int ac, char **av)
 {
     try
     {
-        // 1. Check arguments
+   
         if (ac < 2)
             throw PmergeMe::InvalidArg();
             
         PmergeMe obj;
         
-        // 2. Parse the input
+
         obj.parseInput(av);
-        
-        // 3. Print the array before sorting
+
         obj.printVec("Before: ");
         
-        // Structure to hold the time values
+        
         struct timeval start, end;
+
+        gettimeofday(&start, NULL);
         
-        // ==========================================
-        // Measure time for std::vector
-        // ==========================================
-        gettimeofday(&start, NULL); // Record start time
+        obj.sortVec(); 
         
-        obj.sortVec(); // Sort the vector
-        
-        gettimeofday(&end, NULL); // Record end time
-        
-        // Calculate the difference in microseconds
+        gettimeofday(&end, NULL); 
         long timeVec = (end.tv_sec - start.tv_sec) * 1000000L + (end.tv_usec - start.tv_usec);
         
-        // ==========================================
-        // Measure time for std::deque
-        // ==========================================
-        gettimeofday(&start, NULL); // Record start time
+
+        gettimeofday(&start, NULL); 
         
-        obj.sortDeq(); // Sort the deque
+        obj.sortDeq();
         
-        gettimeofday(&end, NULL); // Record end time
+        gettimeofday(&end, NULL);
         
-        // Calculate the difference in microseconds
         long timeDeq = (end.tv_sec - start.tv_sec) * 1000000L + (end.tv_usec - start.tv_usec);
         
-        // ==========================================
-        // Final Output
-        // ==========================================
-        
-        // 4. Print the array after sorting
+
         obj.printVec("After:  ");
         
-        // 5. Print the time taken for each container
+     
         std::cout << "Time to process a range of " << obj.getSize() 
                   << " elements with std::vector : " << timeVec << " us" << std::endl;
                   
