@@ -11,6 +11,10 @@
 #include <deque>
 #include <sstream>
 
+
+
+
+
 class PmergeMe
 {
     private:
@@ -40,12 +44,10 @@ class PmergeMe
             public:
                 const char *what() const throw();
         };
+        
         void    parseInput(char **av);
         void    sortVec();
         void    sortDeq();
-
-        
-
         size_t getSize() const;
         void    printVec(const std::string& message) const;
 };
