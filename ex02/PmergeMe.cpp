@@ -77,15 +77,24 @@ void PmergeMe::fordJohnsonDeque(std::deque<int>& arr)
     fordJohnsonDeque(mainChain);
 
 
+    std::deque< std::pair<int, int> > searchDict = pairs;
+    
+ 
+    std::sort(searchDict.begin(), searchDict.end());
+
     std::deque<int> pend;
+    
     for (size_t i = 0; i < mainChain.size(); ++i) {
-        for (size_t j = 0; j < pairs.size(); ++j) {
-            if (mainChain[i] == pairs[j].first) {
-                pend.push_back(pairs[j].second);
-                break; 
-            }
-        }
+    
+        std::pair<int, int> target = std::make_pair(mainChain[i], -1);
+        std::deque< std::pair<int, int> >::iterator it = 
+            std::lower_bound(searchDict.begin(), searchDict.end(), target);
+
+        pend.push_back(it->second);
     }
+
+
+
 
 
     if (!pend.empty()) {
@@ -160,41 +169,20 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
 
     std::vector< std::pair<int, int> > searchDict = pairs;
     
-    // نقوم بترتيب القاموس. في C++، ترتيب std::pair يعتمد تلقائياً على العنصر first
-    // التعقيد الزمني هنا هو O(N log N)
+ 
     std::sort(searchDict.begin(), searchDict.end());
 
     std::vector<int> pend;
     
-    // الآن نمر على mainChain المرتبة، ونبحث عن النصف الآخر في القاموس
     for (size_t i = 0; i < mainChain.size(); ++i) {
-        // ننشئ زوجاً وهمياً للبحث، نضع فيه الرقم الذي نبحث عنه، و -1 كقيمة ثانوية
-        // (بما أن كل أرقامك موجبة، -1 يضمن أن lower_bound سيقف بالضبط عند الرقم المطلوب)
+    
         std::pair<int, int> target = std::make_pair(mainChain[i], -1);
-
-        // نستخدم البحث الثنائي السريع جداً O(log N) بدلاً من الحلقة المتداخلة
         std::vector< std::pair<int, int> >::iterator it = 
             std::lower_bound(searchDict.begin(), searchDict.end(), target);
 
-        // بمجرد العثور عليه، نضيف العنصر الأصغر إلى pend
         pend.push_back(it->second);
     }
 
-
-
-
-
-
-
-    // std::vector<int> pend;
-    // for (size_t i = 0; i < mainChain.size(); ++i) {
-    //     for (size_t j = 0; j < pairs.size(); ++j) {
-    //         if (mainChain[i] == pairs[j].first) {
-    //             pend.push_back(pairs[j].second);
-    //             break; 
-    //         }
-    //     }
-    // }
 
     if (!pend.empty()) {
         mainChain.insert(mainChain.begin(), pend[0]);
