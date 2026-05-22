@@ -47,19 +47,15 @@ const char *PmergeMe::OutofRange::what() const throw()
 }
 void PmergeMe::fordJohnsonDeque(std::deque<int>& arr)
 {
-
     if (arr.size() <= 1) 
         return;
-
     int straggler = -1;
     bool hasStraggler = false;
-
     if (arr.size() % 2 != 0) {
         straggler = arr.back();
         arr.pop_back();       
         hasStraggler = true;
     }
-
     std::deque< std::pair<int, int> > pairs;
     for (size_t i = 0; i < arr.size(); i += 2) {
         if (arr[i] > arr[i+1]) {
@@ -68,18 +64,12 @@ void PmergeMe::fordJohnsonDeque(std::deque<int>& arr)
             pairs.push_back(std::make_pair(arr[i+1], arr[i]));
         }
     }
-
     std::deque<int> mainChain;
     for (size_t i = 0; i < pairs.size(); ++i) {
         mainChain.push_back(pairs[i].first);
     }
-
     fordJohnsonDeque(mainChain);
-
-
     std::deque< std::pair<int, int> > searchDict = pairs;
-    
- 
     std::sort(searchDict.begin(), searchDict.end());
 
     std::deque<int> pend;
@@ -92,11 +82,6 @@ void PmergeMe::fordJohnsonDeque(std::deque<int>& arr)
 
         pend.push_back(it->second);
     }
-
-
-
-
-
     if (!pend.empty()) {
         mainChain.insert(mainChain.begin(), pend[0]);
     }
@@ -259,7 +244,7 @@ void PmergeMe::parseInput(char **av)
 
 size_t PmergeMe::getJacobsthalNumber(size_t n)
 {
-    // Base cases
+    
     if (n == 0) return 0;
     if (n == 1) return 1;
     
