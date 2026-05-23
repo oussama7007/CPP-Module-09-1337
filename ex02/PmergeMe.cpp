@@ -189,7 +189,7 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
             std::vector<int>::iterator it = std::lower_bound(mainChain.begin(), mainChain.end(), valueToInsert);
             mainChain.insert(it, valueToInsert);
         }
-        
+
         insertedCount = maxIndex;
         jacobIndex++;
     }
