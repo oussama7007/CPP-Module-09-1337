@@ -225,7 +225,7 @@ void PmergeMe::parseInput(char **av)
                 throw InvalidInput();
 
             long val = std::atol(token.c_str());
-
+            
             if (val < 0 || val > 2147483647)
                 throw OutofRange();
 
