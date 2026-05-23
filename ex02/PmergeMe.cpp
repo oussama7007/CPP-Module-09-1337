@@ -235,7 +235,6 @@ void PmergeMe::parseInput(char **av)
             if (std::find(vec.begin(), vec.end(), intVal) != vec.end())
                 throw std::invalid_argument("Error: Duplicate numbers are not allowed.");
 
-            
             vec.push_back(intVal);
             deq.push_back(intVal);
         }
