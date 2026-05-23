@@ -69,6 +69,7 @@ void PmergeMe::fordJohnsonDeque(std::deque<int>& arr)
         mainChain.push_back(pairs[i].first);
     }
     fordJohnsonDeque(mainChain);
+
     std::deque< std::pair<int, int> > searchDict = pairs;
     std::sort(searchDict.begin(), searchDict.end());
 
@@ -177,7 +178,8 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
     size_t jacobIndex = 3; 
     size_t insertedCount = 1; 
 
-    while (insertedCount < pend.size()) {
+    while (insertedCount < pend.size())
+    {
         size_t jNumber = getJacobsthalNumber(jacobIndex);
         
         size_t maxIndex = jNumber;
