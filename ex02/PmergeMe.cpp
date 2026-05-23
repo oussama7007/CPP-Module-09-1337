@@ -162,6 +162,7 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& arr)
     for (size_t i = 0; i < mainChain.size(); ++i) {
     
         std::pair<int, int> target = std::make_pair(mainChain[i], -1);
+        std::cout <<"======================" << target.first<< "," << target.second << "==========================" << std::endl;
         std::vector< std::pair<int, int> >::iterator it = 
             std::lower_bound(searchDict.begin(), searchDict.end(), target);
 
