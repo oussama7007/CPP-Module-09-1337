@@ -1,11 +1,5 @@
 
 
-// 1. Split line
-// 2. trim date
-// 3. trim value
-// 4. call isValidDate(date)
-// 5. call isValidValue(value)
-
 #include "BitcoinExchange.h" 
 
 BitcoinExchange::BitcoinExchange()  {}
@@ -148,7 +142,7 @@ void    BitcoinExchange::loadDatabase(const std::string &filename)
         database[date]  = price;
     }
     if (database.empty())
-        throw EmptyDn atabaseException();
+        throw EmptyDatabaseException();
 
 }
 
