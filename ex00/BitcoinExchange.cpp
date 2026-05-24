@@ -1,6 +1,6 @@
 
 
-#include "BitcoinExchange.h" 
+#include "BitcoinExchange.hpp" 
 
 BitcoinExchange::BitcoinExchange()  {}
 

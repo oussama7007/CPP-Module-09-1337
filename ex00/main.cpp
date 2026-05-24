@@ -3,7 +3,7 @@
 
 
 
-#include "BitcoinExchange.h"
+#include "BitcoinExchange.hpp"
 
 
 

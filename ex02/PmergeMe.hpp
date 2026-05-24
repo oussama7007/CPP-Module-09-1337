@@ -1,8 +1,8 @@
 
 
 
-#ifndef PmergeMe_H
-#define PmergeMe_H
+#ifndef PmergeMe_HPP
+#define PmergeMe_HPP
 
 #include <algorithm>
 #include <iostream>
